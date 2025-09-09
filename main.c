@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 int main() 
 {
@@ -19,18 +20,18 @@ int main()
         printf("\n Entrer une lettre : ");
         scanf(" %c", &guess);
 
-        int trouve = 0;
+        bool found = false;
         for (i = 0; i < 5; i++) 
         {
-            if (word[i] == guess && mot_cache[i] == '_') 
-            {
+            if (word[i] == guess && mot_cache[i] == '_')   // I cant replace: mot_cache[i] == '_'  with  lettres_found < 5,
+            {                                              //  cuz if i do : logic ruin, mot_cache[i] == '_' means it found once, the other will still count the already founds as correct answer
                 mot_cache[i] = guess;
-                trouve = 1;
+                found = true;
                 lettres_found++;
             }
         }
 
-        if (!trouve) 
+        if (found == false)    // same same   if (!found)
         {
             chances++;
             printf("Lettre incorrect. Il vous reste %d essais .\n", max_chances - chances);
@@ -39,7 +40,7 @@ int main()
 
     if (lettres_found == 5) 
     {
-        printf("Félicitations, le mot est: %s\n", word);
+        printf("Fe'licitations, le mot est: %s\n", word);
     } 
     else 
     {
